@@ -7,5 +7,5 @@ app.get('/', function (req, res) {
         <div class="container-fluid">
             <div class = "navbar-header">
                 <button type = "button" = "navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    
+                 
 });
