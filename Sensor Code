@@ -1,0 +1,75 @@
+// Collision Sensor
+
+
+void setup()
+{
+    pins_init();
+}
+
+void loop()
+{
+    if(isTriggered())
+    {
+        turnOnLED();
+        delay(2000);
+    }
+    else turnOffLED();
+}
+
+void pins_init()
+{
+    pinMode(LED,OUTPUT);
+    turnOffLED();
+    pinMode(COLLISION_SENSOR,INPUT);
+}
+
+boolean isTriggered()
+{
+    if(!digitalRead(COLLISION_SENSOR))
+    {
+        delay(50);
+        if(!digitalRead(COLLISION_SENSOR))
+        return true;//the collision sensor triggers
+    }
+    return false;
+}
+
+void turnOnLED()
+{
+    digitalWrite(LED,HIGH);//the LED is on
+}
+
+void turnOffLED()
+{
+    digitalWrite(LED,LOW);//the LED is off
+}
+
+
+// GPS Sensor
+
+
+import pynmea2
+
+def parseGPS(str):
+    if str.find('GGA') > 0:
+        msg = pynmea2.parse(str)
+        print "Timestamp: %s -- Lat: %s %s -- Lon: %s %s -- Altitude: %s %s" % (msg.timestamp,msg.lat,msg.lat_dir,msg.lon,msg.lon_dir,msg.altitude,msg.altitude_units)
+
+serialPort = serial.Serial("/dev/ttyAMA0", 9600, timeout=0.5)
+
+while True:
+    str = serialPort.readline()
+    parseGPS(str)
+    
+// High Temp Sensor
+
+
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(7,GPIO.IN)
+input = GPIO.input(7)
+while True:
+  if (GPIO.input(7)):
+    print("Flame Detected")
+  else:
+    print("Not Detected")
