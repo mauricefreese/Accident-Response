@@ -2,30 +2,32 @@ var bodyParser = require('body-parser');
 var express = require('express')
 var http = require('http');
 var socketio = require('socket.io');
-var Mongo = require('mongod').MongoClient;
+var Mongo = require('mongodb').MongoClient;
 
-const MONGO_URL = 'mongod;//localhost:27017/iot';
+const MONGO_URL = 'mongodb://localhost:27017/iot';
 
 Mongo.connect(MONGO_URL, function (err, db) {
     if (err) {
         //TODO: handle error
     }
     Mongo.ops = {};
+
+    // Finds all documetns that contain the value of 'json'
+    Mongo.ops.find = function (collection, json, callback) {
+        db.collection(collection).find(json).toArray(function (err, docs) {
+            if (callback) callback(err, docs);
+        });
+    };
+
+    // Creates a new JSONdocumetn in MongoDB
+    Mongo.ops.insert = function (collection, json, callback) {
+        db.collection(collection).insert(json, function (err, result) {
+            if (callback) callback(err, result);
+        });
+    };
 });
 
-// Finds all documetns that contain the value of 'json'
-Mongo.ops.find = function (collection, json, callback) {
-    db.collection(collection).find(json).toArray(function (err, docs) {
-        if (callback) callback(err, docs);
-    });
-};
 
-// Creates a new JSONdocumetn in MongoDB
-Mongo.ops.insert = function (collection, json, callback) {
-    db.collection(collection).insert(json, fucntion(err, result) {
-        if (callback) callback(err, result);
-    });
-};
 
 var app = express();
 var server = http.createServer(app);
