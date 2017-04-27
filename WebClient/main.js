@@ -5,6 +5,6 @@ $(document).ready(function () {
     socket.on('echo', function (data) {
         console.log('socket echo = ' + JSON.stringify(data));
         $('#dht-display').text(data.temp + "C, " + data.humi + "%");
-        $('range-display').text(data.range);
+        $('range-display').text(data.range); //What do I change to have the coordinates come through?
     });
 });

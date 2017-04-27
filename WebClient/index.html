@@ -4,10 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>AR</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
 
 <body>
     <nav class="navbar navbar-default">
+        <div id="map"></div>
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -70,7 +78,7 @@
             <div class="col-sm-4 col-md-4">
                 <div class=" panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">GPS</sh3> </div>
+                        <h3 class="panel-title" id="range-display">GPS</sh3> </div> //What do I change?
                     <div class="panel-body">Content</div>
                 </div>
             </div>
@@ -80,6 +88,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="main.js"></script>
+       <script>
+        function initMap() {
+            var uluru = {
+                lat: -25.363,
+                lng: 131.044
+            };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: uluru
+            });
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDkk6xeux4Ftz_8rFv6XNCNZl5fiu7MAQ&callback=initMap" type="text/javascript"></script>
 </body>
 
 </html>
