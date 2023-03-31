@@ -1,2 +1,2 @@
 # Accident-Response
-Coding project for incident response.
+Coding project for Accident response.
